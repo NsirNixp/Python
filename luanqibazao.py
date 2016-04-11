@@ -1,2 +1,5 @@
-import sys
-print '握草，这里什么都没有'
+import os
+if os.path.isfile('a.txt'):
+  os.remove('a.txt')
+else:
+  print 'fuck you'
