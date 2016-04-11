@@ -1,6 +1,7 @@
 import requests
 import re
-
+import cookielib
+import urllib2
 
 re1='(<)'	# Any Single Character 1
 re2='(body)'	# Word 1
@@ -19,7 +20,7 @@ num_a = 0
 num_b = 0
 num_notgated = 0    
 
-for i in range(0,250):
+for i in range(10):
 #     r = requests.get('http://172.16.4.217/all?keyword=a&order=totalrank&page=1')
 #     rg = re.compile(re1+re2+re3+re4+re5+re6+re7+re8+re9,re.IGNORECASE|re.DOTALL)
 #     m = rg.search(r.text)
@@ -32,6 +33,13 @@ for i in range(0,250):
 #     elif m.group(8) == r'"b"':
 #         num_b = num_b + 1
 
+#第二种获取cookie的方式：
+#cookie = cookielib.CookieJar()
+#opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
+#response = opener.open('http://search.bilibili.com/all?keyword=fate')
+#for item in cookie:
+#   if item.name == 'abtest_search':
+#        print item.value
 
     r = requests.get('http://search.bilibili.com/all?keyword=fate')
     cookiea = r.cookies['abtest_search']    

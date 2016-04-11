@@ -31,7 +31,7 @@ def add_history(i):
 		opener = urllib2.build_opener()
 		opener.addheaders.append(('Cookie',Cookie))
 		response = opener.open(url, data)
-	except urllib2.URLError as e:
+	except urllib2.URLError, e:
 		if hasattr(e, 'code'):
 			print 'Error code: ', e.code
 		elif hasattr(e, 'reason'):
@@ -61,5 +61,5 @@ def clear_history():
 			response.close()
 
 if __name__ == '__main__':
-	for i in range(5000):
+	for i in range(10):
 		add_history(i)
