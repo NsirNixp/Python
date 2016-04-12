@@ -36,6 +36,20 @@ def gen_trie(f_name):
                 logger.debug('%s at line %s %s' % (f_name,  lineno, line))
                 raise ValueError, e
     return trie, lfreq, ltotal
+
+def print_trie(tree, buff, level=0, prefix=''):
+    count = len(tree.items())
+    for k,v in tree.items():
+        count -= 1
+        buff.append('%s +- %s' % ( prefix , k if k!='' else 'NULL'))
+        if v:
+            if count == 0:
+                print_trie(v, buff, level+1, prefix+'    ')
+            else:
+                print_trie(v, buff, level+1, prefix+' |  ')
+        pass
+    pass
+
 if __name__ == '__main__':
     a, b, c = gen_trie('a.txt')
     for i in a:
@@ -43,3 +57,9 @@ if __name__ == '__main__':
     for j in b:
         print j.encode('utf-8')
     print c
+
+    trie, list_freq, total = gen_trie('a.txt')
+    buff = ['ROOT']
+    print_trie(trie, buff, 0)
+    print('\n'.join(buff))
+
