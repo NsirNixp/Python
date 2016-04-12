@@ -17,3 +17,5 @@ def creatfilesize(n):
 if __name__ == '__main__':
     n = input("输入你要生成的文件大小（单位为G）:")
     creatfilesize(n)
+
+    

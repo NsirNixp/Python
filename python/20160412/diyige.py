@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 import urllib, urllib2
-import sys
 import httplib
 
 # # 使用urllib2, urllib发送GET请求
