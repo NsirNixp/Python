@@ -3,7 +3,8 @@ import urllib, urllib2
 import sys
 import requests
 import json
-Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=574b1bcf%2C1460533466%2C1420f122;_dfcaptcha=83731bc77e0aa6b11c7a0ba4c0e61b5d;sid=lrdqw3on;'
+# Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=574b1bcf%2C1460533466%2C1420f122;_dfcaptcha=83731bc77e0aa6b11c7a0ba4c0e61b5d;sid=lrdqw3on;'
+Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=574b1bcf%2C1461131799%2C1b41b0bb;_dfcaptcha=26b96f9e4fa9969fc15e7bd78ad210b9;sid=92xvtygd;'
 def get_history(i):
 	# n = 0
 	url = 'http://api.bilibili.com/x/v2/history'
@@ -61,5 +62,6 @@ def clear_history():
 			response.close()
 
 if __name__ == '__main__':
-	for i in range(10):
-		add_history(i)
+	for i in range(500):
+		add_history(i+3890816)
+3891263/

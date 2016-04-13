@@ -21,23 +21,23 @@ num_b = 0
 num_notgated = 0    
 
 for i in range(10):
-#     r = requests.get('http://172.16.4.217/all?keyword=a&order=totalrank&page=1')
-#     rg = re.compile(re1+re2+re3+re4+re5+re6+re7+re8+re9,re.IGNORECASE|re.DOTALL)
-#     m = rg.search(r.text)
-#     print m.group(8)
+    # r = requests.get('http://172.16.4.217/all?keyword=a&order=totalrank&page=1')
+    # rg = re.compile(re1+re2+re3+re4+re5+re6+re7+re8+re9,re.IGNORECASE|re.DOTALL)
+    # m = rg.search(r.text)
+    # print m.group(8)
 
-#     if m.group(8) == r'"notgated"':
-#         num_notgated = num_notgated + 1
-#     elif m.group(8) == r'"a"':
-#         num_a = num_a + 1
-#     elif m.group(8) == r'"b"':
-#         num_b = num_b + 1
+    # if m.group(8) == r'"notgated"':
+    #     num_notgated = num_notgated + 1
+    # elif m.group(8) == r'"a"':
+    #     num_a = num_a + 1
+    # elif m.group(8) == r'"b"':
+    #     num_b = num_b + 1
 
-#第二种获取cookie的方式：
-#cookie = cookielib.CookieJar()
-#opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
-#response = opener.open('http://search.bilibili.com/all?keyword=fate')
-#for item in cookie:
+# 第二种获取cookie的方式：
+# cookie = cookielib.CookieJar()
+# opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
+# response = opener.open('http://search.bilibili.com/all?keyword=fate')
+# for item in cookie:
 #   if item.name == 'abtest_search':
 #        print item.value
 
