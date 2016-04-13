@@ -64,4 +64,3 @@ def clear_history():
 if __name__ == '__main__':
 	for i in range(500):
 		add_history(i+3890816)
-3891263/

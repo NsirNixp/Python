@@ -59,3 +59,8 @@ password = ''.join(a)
 f = open('a.txt', 'w')
 f.write(name + ',' + password + '\n')
 f.close()
+
+# 密码加密 MD5加密数据库
+import hashlib
+hashlib.md5(password).hexdigest()
+

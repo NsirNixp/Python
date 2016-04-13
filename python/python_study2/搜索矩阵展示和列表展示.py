@@ -13,11 +13,11 @@ import requests
 url = 'http://search.bilibili.com/all?keyword=fate'
 url1 = 'http://172.16.4.217/all?keyword=fate'
 url2 = 'http://www.bilibili.com'
-# url3 = 'http://www.baidu.com'
+url3 = 'http://www.baidu.com'
 
 cookie = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
-response = opener.open(url1)
+response = opener.open(url)
 for item in cookie:
     print 'Name = '+ item.name
     print 'Value = '+ item.value
