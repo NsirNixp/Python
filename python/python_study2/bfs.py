@@ -51,7 +51,7 @@ def Make_File(path,size):
         fileWriter.write("abcdefghijklmnopqrstuvwxyz"*Comment)
     fileWriter.close()
 
-def create_authorization(METHOD,FILE_NAME):
+def create_authorization(METHOD, FILE_NAME):
     now = int(time.time())
     h = hmac.new(ACCESS_SECRET,METHOD+"\n"+BUCKET_NAME+"\n"+FILE_NAME + "\n" + str(now) + "\n", sha)
     signature = base64.b64encode(h.digest())
@@ -74,21 +74,21 @@ def Upload(params):
         print response.status
         print response.reason
         print response.read()
-	fd = open('location_error.txt','a')
+        fd = open('location_error.txt','a')
         header = response.getheaders()
         for h in header:
             if h[0] == 'location':
                 location = h[1]
-	    elif h[0] == 'code':
-		code = int(h[1])
-	    elif h[0] == 'etag':
-		etag = h[1]
-		print etag
-	if code != 200:
-	    fd.write('返回码是：===========================================  %d  文件大小为：%d \n' %(code,size))
-	    return
-	else:
-	    fd.write(location + ' Success,code：=  %d files: %d \n' %(code,size))
+            elif h[0] == 'code':
+                code = int(h[1])
+            elif h[0] == 'etag':
+                etag = h[1]
+            print etag
+        if code != 200:
+            fd.write('返回码是：===========================================  %d  文件大小为：%d \n' %(code,size))
+            return
+        else:
+            fd.write(location + ' Success,code：=  %d files: %d \n' %(code,size))
 
     except Exception, e:
         print e
@@ -104,21 +104,21 @@ def DownLoad(params):
     httpClient = None
 	
     try:
-	headers = {"Content-type": "image/jpeg","Authorization": create_authorization(METHOD,params)}
-	httpClient = httplib.HTTPConnection(BFS_IP, BFS_PORT, timeout=30)
-	httpClient.request(METHOD, uri,"",headers)
-	response = httpClient.getresponse()
-	print "status:",response.status
-	print "reason:",response.reason
+        headers = {"Content-type": "image/jpeg","Authorization": create_authorization(METHOD,params)}
+        httpClient = httplib.HTTPConnection(BFS_IP, BFS_PORT, timeout=30)
+        httpClient.request(METHOD, uri,"",headers)
+        response = httpClient.getresponse()
+        print "status:",response.status
+        print "reason:",response.reason
 
-	body = response.read()
-	etag = get_sha1(body)
-	return etag
+        body = response.read()
+        etag = get_sha1(body)
+        return etag
     except Exception, e:
-	print e
+        print e
     finally:
-	if httpClient:
-	    httpClient.close()
+        if httpClient:
+            httpClient.close()
 
 
 def Delete(params):
@@ -135,10 +135,10 @@ def Delete(params):
         print "status:",response.status
         print "reason:",response.reason
         f = open('delete_error.txt', 'a')
-	if response.status != 200:
-	    f.write(params+'有异常,返回码是：================%d\n' %(response.status))
-	else:
-	    f.write('此次成功\n')
+        if response.status != 200:
+            f.write(params+'有异常,返回码是：================%d\n' %(response.status))
+        else:
+            f.write('此次成功\n')
     except Exception, e:
         print e
     finally:
@@ -147,7 +147,7 @@ def Delete(params):
 
 def Task(index):
     for x in xrange(0, 200000):
-    	time.sleep(1)
+        time.sleep(1)
         size = random.randint(index,index+1000000)
         #size = random.randint(index,index+1)
         params = 'test'+hashlib.sha1(str(size)).hexdigest()+'.txt'
@@ -166,11 +166,11 @@ def Task_dl():
     fd = open("get_error.txt","a")
     lines = f.readlines()
     for x in xrange(0,len(lines)):
-    	time.sleep(0.01)
+        time.sleep(0.01)
         if lines[x].find(FILE_NAME) > 0:
             name = lines[x][lines[x].index(FILE_NAME)+len(FILE_NAME):].strip('\n').split('.')[0]
             time1 = time.time()
-	    etag = DownLoad(FILE_NAME+lines[x][lines[x].index(FILE_NAME)+len(FILE_NAME):].strip('\n').split(' ')[0])
+            etag = DownLoad(FILE_NAME+lines[x][lines[x].index(FILE_NAME)+len(FILE_NAME):].strip('\n').split(' ')[0])
             time2 = time.time()
             timex = time2 - time1
         else:
@@ -179,10 +179,10 @@ def Task_dl():
             etag = DownLoad(lines[x].split('/')[5].strip('\n').split(' ')[0])
             time2 = time.time()
             timex = time2 - time1
-	if etag == name:
+        if etag == name:
             fd.write("对比成功     time:%s\n" %(timex))
-	else:
-	    fd.write(lines[x].strip('\n').split(' ')[0] + "   ================================有异常\n")
+        else:
+            fd.write(lines[x].strip('\n').split(' ')[0] + "   ================================有异常\n")
     fd.close()
     f.close()
 
@@ -190,7 +190,7 @@ def Task_d():
     f = open("location_error.txt","r")
     lines = f.readlines()
     for x in xrange(0,len(lines)):
-    	time.sleep(0.01)
+        time.sleep(0.01)
         if lines[x].find(FILE_NAME) > 0:
             print lines[x][lines[x].index(FILE_NAME)+len(FILE_NAME):].strip('\n').split(' ')[0]
             time1 = time.time()
@@ -198,9 +198,9 @@ def Task_d():
             time2 = time.time()
             print time2 - time1
         else:
-	    print lines[x].split('/')[5].strip('\n').split(' ')[0]
+            print lines[x].split('/')[5].strip('\n').split(' ')[0]
             time1 = time.time()
-	    Delete(lines[x].split('/')[5].strip('\n').split(' ')[0])
+            Delete(lines[x].split('/')[5].strip('\n').split(' ')[0])
             time2 = time.time()
             print time2 - time1
     f = open("location.txt","w")
