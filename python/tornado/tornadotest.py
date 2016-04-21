@@ -10,6 +10,7 @@
 # @file: tornadotest.py
 # @time: 2016/4/21 13:20
 
+# 开启一个本地的服务
 import tornado.ioloop
 import tornado.web
 class MainHandler(tornado.web.RequestHandler):
