@@ -13,6 +13,7 @@
 # 利用python的urllib2模块完成断点续传下载的例子
 import urllib2
 
+#req = urllib2.Request('http://www.bilibili.com')
 req = urllib2.Request('http://www.python.org/')
 req.add_header('Range', 'bytes=0-14')
 res = urllib2.urlopen(req)

@@ -4,8 +4,10 @@ import sys, os
 import requests
 import json
 
-# 用户信息的cookie
-Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=574b1bcf%2C1461131799%2C1b41b0bb;_dfcaptcha=26b96f9e4fa9969fc15e7bd78ad210b9;sid=92xvtygd;'
+# 用户信息的cookie 线上
+# Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=574b1bcf%2C1461131799%2C1b41b0bb;_dfcaptcha=26b96f9e4fa9969fc15e7bd78ad210b9;sid=92xvtygd;'
+# 用户信息的cookie 测试环境的cookie
+Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=7bf20cf0%2C1464264469%2C9c4bba7a;_dfcaptcha=528f3ca0aea9b76739ab3d2d8d040869;sid=65x6gqm9;'
 # 获取播放历史信息
 def get_history():
 	# n = 0
@@ -112,9 +114,9 @@ def zonghe_jilv(args):
 	f.close()
 
 if __name__ == '__main__':
-	
+	print get_history()
 	# for i in range(50):
-		# add_history(i+101)
+	# 	add_history(i+101)
 	# clear_history()
 
 	# 增加播放历史 每次增加200个，循环增加200次
@@ -125,7 +127,7 @@ if __name__ == '__main__':
 	# 	f = open('a.txt', 'r')
 	# 	readlines = f.readlines()
 	# 	sum = 0
-	# 分析log中每次计算的降级几率，计算平均降级几率
+	# # 分析log中每次计算的降级几率，计算平均降级几率
 	# 	for i in readlines:
 	# 		num = float(i.strip('\n').split(':')[1].strip('%'))
 	# 		sum = sum + num
@@ -137,22 +139,22 @@ if __name__ == '__main__':
 	# print '完事'
 	
 	# 两个服务同时挂掉，分析并计算几率
-	for i in range(100):
-		zonghe_jilv(200)
-	if os.path.isfile('a.txt'):
-		f = open('a.txt', 'r')
-		readlines = f.readlines()
-		sum1 = 0
-		sum2 = 0
-		for i in readlines:
-			num1 = float(i.strip('\n').split(':')[1].strip('%'))
-			num2 = float(i.strip('\n').split(':')[2].strip('%'))
-			sum1 = sum1 + num1
-			sum2 = sum2 + num2
-		f.close()
-		pro1 = float(sum1)/float(100)
-		pro2 = float(sum2)/float(100)
-		f = open('a.txt', 'a')
-		f.write('空平均概率是: %.2f%%, 404平均概率是:%.2f%%'%(pro1,pro2))
-		f.close()
-	print '完事'
+	# for i in range(100):
+	# 	zonghe_jilv(200)
+	# if os.path.isfile('a.txt'):
+	# 	f = open('a.txt', 'r')
+	# 	readlines = f.readlines()
+	# 	sum1 = 0
+	# 	sum2 = 0
+	# 	for i in readlines:
+	# 		num1 = float(i.strip('\n').split(':')[1].strip('%'))
+	# 		num2 = float(i.strip('\n').split(':')[2].strip('%'))
+	# 		sum1 = sum1 + num1
+	# 		sum2 = sum2 + num2
+	# 	f.close()
+	# 	pro1 = float(sum1)/float(100)
+	# 	pro2 = float(sum2)/float(100)
+	# 	f = open('a.txt', 'a')
+	# 	f.write('空平均概率是: %.2f%%, 404平均概率是:%.2f%%'%(pro1,pro2))
+	# 	f.close()
+	# print '完事'
