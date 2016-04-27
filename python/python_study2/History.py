@@ -3,30 +3,29 @@ import urllib, urllib2
 import sys, os
 import requests
 import json
-
+import hashlib
+import time
 # 用户信息的cookie 线上
 # Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=574b1bcf%2C1461131799%2C1b41b0bb;_dfcaptcha=26b96f9e4fa9969fc15e7bd78ad210b9;sid=92xvtygd;'
 # 用户信息的cookie 测试环境的cookie
 Cookie = 'DedeUserID=17668003;DedeUserID__ckMd5=8aa32229517ebaac;SESSDATA=7bf20cf0%2C1464264469%2C9c4bba7a;_dfcaptcha=528f3ca0aea9b76739ab3d2d8d040869;sid=65x6gqm9;'
+appkey = '6a29f8ed87407c11'
+appsecret = 'd3c5a85f5b895a03735b5d20a273bc57'
 # 获取播放历史信息
 def get_history():
 	# n = 0
 	url = 'http://api.bilibili.com/x/v2/history'
 	data = {
 		'pn':1,
-		'ps':10
+		'ps':129
 	}
 	data = urllib.urlencode(data)
 	url2 = url + '?' + data
 	opener = urllib2.build_opener()
 	opener.addheaders.append(('Cookie',Cookie))
 	f= opener.open(url2)
-	html = f.read()
-	response = json.loads(html)
-	# print type(html)
-	return html
-	# print type(response)
-	# return response
+	response = f.read()
+	return response
 # 增加播放历史信息
 def add_history(i):
 	url = 'http://api.bilibili.com/x/v2/history/add'
@@ -68,6 +67,52 @@ def clear_history():
 		print response.read()
 		if response:
 			response.close()
+
+# 删除单个历史记录
+def del_history(aid):
+	url = 'http://api.bilibili.com/x/v2/history/del'
+	data = {
+		'aid':aid
+	}
+	data = urllib.urlencode(data)
+	response = None
+	try:
+		opener = urllib2.build_opener()
+		opener.addheaders.append(('Cookie',Cookie))
+		response = opener.open(url, data)
+	except urllib2.URLError as e:
+		if hasattr(e, 'code'):
+			print 'Error code: ', e.code
+		elif hasattr(e, 'reason'):
+			print 'Reason: ', e.code
+	finally:
+		print response.read()
+		if response:
+			response.close()
+
+# 获取单个的稿件信息
+def get_archive(aid):
+	url = 'http://172.16.0.26:6081/x/archive'
+	data = {
+		'appkey': appkey,
+		'ts': int(time.time()),
+		'aid': aid,
+		'appsecret': appsecret
+	}
+	# 排序
+	data_sort = urllib.urlencode(sorted(data.iteritems(), key=lambda d: d[0]))
+	# MD5加密
+	m2 = hashlib.md5()
+	m2.update(data_sort + appsecret)
+	sign = m2.hexdigest()
+	# 完事
+	data['sign'] = sign
+	params = urllib.urlencode(data)
+	url1 = url + '?' + params
+	request = urllib2.Request(url1)
+	return urllib2.urlopen(request).read()
+
+
 # history依赖的account-service挂掉
 def account_jilv(args):
 	a = 0
@@ -117,12 +162,25 @@ def zonghe_jilv(args):
 	f.close()
 
 if __name__ == '__main__':
-	print get_history()
-	# for i in range(50):
-	# 	add_history(i+101)
-	# clear_history()
+	print get_archive(102)
+	print get_archive(104)
 
-	# 增加播放历史 每次增加200个，循环增加200次
+# 添加历史记录，然后获取历史记录总数，一一遍历历史记录然后通过单个删除接口删除，算是一个流程
+# 	for i in range(50):
+# 		add_history(i+101)
+# 	html = json.loads(get_history())
+# 	print html
+# 	a = 0
+# 	list = []
+# 	for i in html['data']:
+# 		print i['aid']
+# 		a += 1
+# 		list.append(i['aid'])
+# 	print '历史总数是: %s'%(a)
+# 	for i in list:
+# 		del_history(i)
+
+# 增加播放历史 每次增加200个，循环增加200次
 
 	# for i in range(100):
 	# 	zonghe_jilv(200)
