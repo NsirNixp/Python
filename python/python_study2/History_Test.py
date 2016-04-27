@@ -106,12 +106,60 @@ def get_archive(aid):
 	m2.update(data_sort + appsecret)
 	sign = m2.hexdigest()
 	# 完事
+
+	# 把sign加进dict，进行urlencode编码
 	data['sign'] = sign
 	params = urllib.urlencode(data)
 	url1 = url + '?' + params
 	request = urllib2.Request(url1)
 	return urllib2.urlopen(request).read()
 
+# 获取多个的稿件信息
+def get_archives(aids):
+	url = 'http://172.16.0.26:6081/x/archive/archives'
+	data = {
+		'appkey': appkey,
+		'ts': int(time.time()),
+		'aids': aids,
+		'appsecret': appsecret
+	}
+	# 排序
+	data_sort = urllib.urlencode(sorted(data.iteritems(), key=lambda d: d[0]))
+	# MD5加密
+	m2 = hashlib.md5()
+	m2.update(data_sort.lower() + appsecret)
+	sign = m2.hexdigest()
+	# 完事
+
+	# 把sign加进dict，进行urlencode编码
+	data['sign'] = sign
+	params = urllib.urlencode(data)
+	url1 = url + '?' + params
+	request = urllib2.Request(url1)
+	return urllib2.urlopen(request).read()
+
+# 删除稿件缓存信息
+def del_cache_archive(aid):
+	url = 'http://172.16.0.26:6081/x/archive/cache/del'
+	data = {
+		'appkey': appkey,
+		'ts': int(time.time()),
+		'aid': aid,
+		'appsecret': appsecret
+	}
+	# 排序
+	data_sort = urllib.urlencode(sorted(data.iteritems(), key=lambda d: d[0]))
+	# MD5加密
+	m2 = hashlib.md5()
+	m2.update(data_sort + appsecret)
+	sign = m2.hexdigest()
+	# 完事
+
+	# 把sign加进dict，进行urlencode编码
+	data['sign'] = sign
+	params = urllib.urlencode(data)
+	request = urllib2.Request(url, params)
+	return urllib2.urlopen(request).read()
 
 # history依赖的account-service挂掉
 def account_jilv(args):
@@ -162,9 +210,9 @@ def zonghe_jilv(args):
 	f.close()
 
 if __name__ == '__main__':
-	print get_archive(102)
-	print get_archive(104)
-
+	# print get_archive(102)
+	# print del_cache_archive(102)
+	print get_archives('102,103')
 # 添加历史记录，然后获取历史记录总数，一一遍历历史记录然后通过单个删除接口删除，算是一个流程
 # 	for i in range(50):
 # 		add_history(i+101)
