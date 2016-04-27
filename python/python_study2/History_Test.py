@@ -212,7 +212,8 @@ def zonghe_jilv(args):
 if __name__ == '__main__':
 	# print get_archive(102)
 	# print del_cache_archive(102)
-	print get_archives('102,103')
+	for i in range(100):
+		print get_archives('102,103')
 # 添加历史记录，然后获取历史记录总数，一一遍历历史记录然后通过单个删除接口删除，算是一个流程
 # 	for i in range(50):
 # 		add_history(i+101)
