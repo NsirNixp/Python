@@ -23,7 +23,10 @@ def get_history():
 	f= opener.open(url2)
 	html = f.read()
 	response = json.loads(html)
-	return response
+	# print type(html)
+	return html
+	# print type(response)
+	# return response
 # 增加播放历史信息
 def add_history(i):
 	url = 'http://api.bilibili.com/x/v2/history/add'
