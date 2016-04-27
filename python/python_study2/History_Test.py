@@ -17,7 +17,7 @@ def get_history():
 	url = 'http://api.bilibili.com/x/v2/history'
 	data = {
 		'pn':1,
-		'ps':129
+		'ps':305
 	}
 	data = urllib.urlencode(data)
 	url2 = url + '?' + data
@@ -210,10 +210,13 @@ def zonghe_jilv(args):
 	f.close()
 
 if __name__ == '__main__':
+	print get_history()
+	# clear_history()
+	# add_history(105)
 	# print get_archive(102)
 	# print del_cache_archive(102)
-	for i in range(100):
-		print get_archives('102,103')
+	# for i in range(100):
+	# 	print get_archives('102,103')
 # 添加历史记录，然后获取历史记录总数，一一遍历历史记录然后通过单个删除接口删除，算是一个流程
 # 	for i in range(50):
 # 		add_history(i+101)
