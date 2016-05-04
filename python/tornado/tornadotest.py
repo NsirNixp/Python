@@ -16,12 +16,11 @@ import tornado.web
 class MainHandler(tornado.web.RequestHandler):
 	def get(self):
 		self.write('Hello, world')
-		self.write()
 
 application = tornado.web.Application([
 		(r'/', MainHandler)
 	])
 
 if __name__ == '__main__':
-	application.listen(8888)
+	application.listen(8889)
 	tornado.ioloop.IOLoop.instance().start()
