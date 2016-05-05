@@ -17,9 +17,9 @@ from bs4 import BeautifulSoup
 import gevent
 import gevent.monkey
 gevent.monkey.patch_all()
+import sys
 
-
-def test():
+def Test():
     test_query_file = 'search_wordslib.txt'
     count = len(open(test_query_file,'rU').readlines())
     hellonum=random.randrange(1, count, 1)
@@ -51,5 +51,13 @@ def test():
         fd = open('a.txt', 'a')
         fd.write('没有相关数据====================' + keyword + '\n')
         fd.close()
+
+def MT_Thread():
+    tasks = []
+    for i in range(0,2):
+        tasks.append(gevent.spawn(Test))
+    gevent.joinall(tasks)
+
 if __name__ == '__main__':
-    test()
+    for i in range(int(sys.argv[1])):
+        MT_Thread()
