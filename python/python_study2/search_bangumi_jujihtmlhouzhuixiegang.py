@@ -20,7 +20,7 @@ gevent.monkey.patch_all()
 import sys
 
 def Test():
-    test_query_file = 'search_wordslib.txt'
+    test_query_file = 'bangumi.txt'
     count = len(open(test_query_file,'rU').readlines())
     hellonum=random.randrange(1, count, 1)
     word = linecache.getline(test_query_file,hellonum)
